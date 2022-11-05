@@ -8,7 +8,8 @@ public class PlayerScript : MonoBehaviour
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-    private float playerSpeed = 1.0f;
+    private float playerNormalSpeed = 3.0f;
+    private float plyaerSprintSpeed = 5.0f;
     private float jumpHeight = 1.0f;
     private float gravityValue = -9.81f;
 
@@ -29,6 +30,9 @@ public class PlayerScript : MonoBehaviour
 
      void FixedUpdate()
     {
+
+        float speed = Input.GetKey(KeyCode.LeftShift) ? plyaerSprintSpeed : playerNormalSpeed;
+
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
@@ -36,12 +40,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        controller.Move(move * Time.deltaTime * playerSpeed);
-
-        if (move != Vector3.zero)
-        {
-            controller.Move(move);
-        }
+        controller.Move(move * Time.deltaTime * speed);
 
         if (JumpPushKey)
         {
