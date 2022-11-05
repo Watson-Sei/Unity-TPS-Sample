@@ -1,36 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 
 public class PlayerScript : MonoBehaviour
 {
-    CharacterController con;
-    Animator anim;
+    float speed = 3.0f;
 
-    float normalSpeed = 3f;
-    float sprintSpeed = 5f;
-    float jump = 8f;
-    float gravity = 10f;
-
-    Vector3 moveDirection = Vector3.zero;
-    Vector3 startPos;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        con = GetComponent & lt; CharacterController & gt; ();
-        anim = GetComponent & lt; Animator & gt; ();
-
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        startPos = transform.position;
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        // Wキー（前方移動）
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.position += speed * transform.forward * Time.deltaTime;
+        }
+
+        // Sキー（後方移動）
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.position -= speed * transform.forward * Time.deltaTime;
+        }
+
+        // Dキー（右移動）
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.position += speed * transform.right * Time.deltaTime;
+        }
+
+        // Aキー（左移動）
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.position -= speed * transform.right * Time.deltaTime;
+        }
     }
 }
